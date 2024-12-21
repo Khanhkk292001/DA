@@ -4,11 +4,13 @@ import { ReactTable } from '@/libs/components/Table'
 import { formatDate } from '@/utils/format'
 import { ColumnDef } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useMaintenanceListQuery } from '../hooks/useMaintenanceListQuery'
 import { MaintenanceType } from '../type'
 
 const MaintenanceList = () => {
-  const { tableData, totalPages } = useMaintenanceListQuery()
+  const [status, setStatus] = useState<string>('all')
+  const { tableData, totalPages } = useMaintenanceListQuery(status)
   const router = useRouter()
 
   const formatCurrency = (value?: number) =>
@@ -49,11 +51,22 @@ const MaintenanceList = () => {
         width: 150,
         headStyle: { padding: '0 16px' },
         cellStyle: {
-          ...commonCellStyle, 
+          ...commonCellStyle,
         },
       },
       cell: ({ row }) => {
         return <span>{formatDate(row.original.maintenanceDate)}</span>
+      },
+    },
+    {
+      header: 'Mã vạch',
+      accessorKey: 'code',
+      meta: {
+        width: 150,
+        headStyle: { padding: '0 16px' },
+        cellStyle: {
+          ...commonCellStyle,
+        },
       },
     },
     {
@@ -63,17 +76,35 @@ const MaintenanceList = () => {
         width: 250,
         headStyle: { padding: '0 16px' },
         cellStyle: {
-          ...commonCellStyle, 
+          ...commonCellStyle,
         },
       },
     },
     {
-      header: 'Trạng thái',
+      header: () => (
+        <div>
+          <select
+            value={status}
+            onChange={(e) => {
+              setStatus(e.target.value)
+            }}
+            style={{
+              marginLeft: '8px',
+              padding: '4px',
+              fontSize: '14px',
+            }}
+          >
+            <option value="all">Tất cả</option>
+            <option value="completed">Hoàn thành</option>
+            <option value="pending">Đang chờ</option>
+          </select>
+        </div>
+      ),
       accessorKey: 'status',
       meta: {
         width: 120,
         cellStyle: {
-          ...commonCellStyle, 
+          ...commonCellStyle,
         },
       },
       cell: ({ row }) => {
@@ -87,14 +118,13 @@ const MaintenanceList = () => {
         width: 150,
         headStyle: { padding: '0 16px' },
         cellStyle: {
-          ...commonCellStyle, 
+          ...commonCellStyle,
         },
       },
       cell: ({ row }) => {
         return <span>{formatCurrency(row.getValue('maintenanceCost'))}</span>
       },
     },
-    
   ]
 
   return (

@@ -47,6 +47,7 @@ const MaintenanceDetail = () => {
             value={formatDate(data?.maintenanceDate as string)}
             isPending={isLoading}
           />
+          <DetailItem label="Mã vạch" value={data?.code} isPending={isLoading} />
           <DetailItem label="Mô tả" value={data?.description} isPending={isLoading} />
           <DetailItem
             label="Chi phí bảo trì"

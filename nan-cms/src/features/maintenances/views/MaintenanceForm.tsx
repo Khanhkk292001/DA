@@ -32,17 +32,19 @@ const MaintenanceForm = () => {
       maintenanceCost: 0,
       equipmentId: '',
       status: 'pending',
+      code: '',
     },
     resolver: zodResolver(MaintenanceCreateInputSchema),
   })
 
   useEffect(() => {
     if (maintenanceDetail) {
-      const { maintenanceDate, description, maintenanceCost, equipmentId } = maintenanceDetail
+      const { maintenanceDate, description, maintenanceCost, equipmentId, code } = maintenanceDetail
       setValue('maintenanceDate', maintenanceDate as string)
       setValue('description', description as string)
       setValue('maintenanceCost', maintenanceCost as number)
       setValue('equipmentId', equipmentId as string)
+      setValue('code', code as string)
       setValue('status', maintenanceDetail?.status ?? 'pending')
     }
   }, [setValue, maintenanceDetail])
@@ -121,6 +123,16 @@ const MaintenanceForm = () => {
               type="number"
               fullWidth
             />
+            <Input
+              control={control}
+              name="code"
+              label="Mã vạch"
+              labelLeft
+              placeholder="Mã vạch"
+              type="text"
+              fullWidth
+            />
+
             {maintenanceDetail?.status && (
               <Select
                 control={control}

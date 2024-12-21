@@ -23,6 +23,7 @@ export type MaintenanceDetailType = {
   equipmentId?: string
   createdAt?: string
   updatedAt?: string
+  code?: string
 }
 
 export type MaintenanceListType = {
@@ -75,6 +76,7 @@ export const MaintenanceCreateInputSchema = z.object({
     })
     .optional(),
   equipmentId: z.string().nonempty({ message: 'ID thiết bị là bắt buộc' }),
+  code: z.string().nonempty({ message: 'Mã vạch thiết bị là bắt buộc' }),
 })
 
 export const MaintenanceUpdateInputSchema = MaintenanceCreateInputSchema.extend({
