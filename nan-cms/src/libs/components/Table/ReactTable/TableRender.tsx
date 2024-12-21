@@ -1,4 +1,3 @@
-import { Stack, Typography } from '@mui/material'
 import { ReactElement } from 'react'
 import { TableSkeleton } from '.'
 import { TableRenderer } from '../TableRerender'
@@ -14,16 +13,6 @@ function TableRender(): ReactElement {
 
   if (loading) {
     return <TableSkeleton />
-  }
-
-  if (data.length === 0 && !loading) {
-    return (
-      <Stack justifyContent="center" alignItems="center" height="60vh">
-        <Typography variant="h3" color="mono.600">
-          Không có dữ liệu!
-        </Typography>
-      </Stack>
-    )
   }
 
   return (

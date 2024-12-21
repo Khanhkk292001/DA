@@ -26,7 +26,6 @@ export class RentalFilterDto {
     enum: RentalStatus,
   })
   @IsOptional()
-  @IsEnum(RentalStatus)
   status?: RentalStatus;
 
   @ApiProperty({

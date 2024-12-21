@@ -25,7 +25,8 @@ export class RentalService {
   }> {
     const whereClause: Prisma.RentalWhereInput = {
       ...(filters.userId && { userId: filters.userId }),
-      ...(filters.status && { status: filters.status }),
+      // @ts-ignore
+      ...(filters.status !== 'all' && { status: filters.status }),
       ...(filters.startDate && { startDate: { gte: filters.startDate } }),
       ...(filters.endDate && { endDate: { lte: filters.endDate } }),
       ...(filters.totalAmount && { totalAmount: { gte: filters.totalAmount } }),

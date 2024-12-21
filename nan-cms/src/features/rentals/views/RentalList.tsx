@@ -5,11 +5,14 @@ import { ReactTable } from '@/libs/components/Table'
 import { Stack, Typography } from '@mui/material'
 import { useMutation } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
+import { useState } from 'react'
 import { useRentalListQuery } from '../hooks'
 import { RentalType } from '../type'
 
 const RentalList = () => {
-  const { tableData, totalPages, refetch } = useRentalListQuery()
+  const [status, setStatus] = useState<string>('all')
+
+  const { tableData, totalPages, refetch } = useRentalListQuery(status)
   const { mutate } = useMutation({
     mutationFn: confirmRental,
     onSuccess: () => {
@@ -20,7 +23,7 @@ const RentalList = () => {
       alert('Xác nhận thất bại')
     },
   })
-  
+
   const { mutate: cancel } = useMutation({
     mutationFn: cancelRental,
     onSuccess: () => {
@@ -115,7 +118,26 @@ const RentalList = () => {
       },
     },
     {
-      header: 'Trạng thái',
+      header: () => (
+        <div>
+          <select
+            value={status}
+            onChange={(e) => {
+              setStatus(e.target.value)
+            }}
+            style={{
+              marginLeft: '8px',
+              padding: '4px',
+              fontSize: '14px',
+            }}
+          >
+            <option value="all">Tất cả</option>
+            <option value="pending">Chưa xác nhận</option>
+            <option value="confirmed">Đã xác nhận</option>
+            <option value="canceled">Đã hủy</option>
+          </select>
+        </div>
+      ),
       accessorKey: 'status',
       meta: {
         headStyle: {
