@@ -31,12 +31,10 @@ export class MaintenanceFilterDto {
 
   @ApiProperty({
     description: 'Trạng thái bảo trì',
-    enum: MaintenanceStatus,
     required: false,
   })
   @IsOptional()
-  @IsEnum(MaintenanceStatus)
-  status?: MaintenanceStatus;
+  status?: string;
 
   @ApiProperty({
     description: 'Chi phí bảo trì',

@@ -310,6 +310,7 @@ model Maintenance {
   // maintenanceType          MaintenanceType
   status                   MaintenanceStatus @default(pending)
   maintenanceCost          Float?
+  code                     String
 
   equipmentId String    @db.ObjectId
   equipment   Equipment @relation(fields: [equipmentId], references: [id])

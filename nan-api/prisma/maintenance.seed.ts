@@ -11,6 +11,7 @@ const maintenances = [
     status: MaintenanceStatus.pending,
     maintenanceCost: 500000,
     equipmentId: '5fbb1a2c3c9d440000e12345',
+    code: '1',
   },
   {
     id: '64f21cddf1d2bc2b4d8f8c86',
@@ -20,6 +21,7 @@ const maintenances = [
     status: MaintenanceStatus.completed,
     maintenanceCost: 300000,
     equipmentId: '5fbb1a2c3c9d440000e12346',
+    code: '2',
   },
   {
     id: '64f21cddf1d2bc2b4d8f8c87',
@@ -29,6 +31,7 @@ const maintenances = [
     status: MaintenanceStatus.pending,
     maintenanceCost: 450000,
     equipmentId: '5fbb1a2c3c9d440000e12347',
+    code: '3',
   },
 ];
 
@@ -52,6 +55,7 @@ const seedMaintenance = async (maintenance: (typeof maintenances)[0]) => {
         status: maintenance.status,
         maintenanceCost: maintenance.maintenanceCost,
         equipmentId: maintenance.equipmentId,
+        code: maintenance.code,
       },
     });
 

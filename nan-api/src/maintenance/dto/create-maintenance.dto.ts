@@ -51,4 +51,8 @@ export class CreateMaintenanceDto {
   @IsNotEmpty()
   @IsString()
   equipmentId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  code: string;
 }

@@ -36,7 +36,10 @@ export class MaintenanceService {
         ...(filters.suggestedNextMaintenance && {
           suggestedNextMaintenance: new Date(filters.suggestedNextMaintenance),
         }),
-        ...(filters.status && { status: filters.status }),
+        // @ts-ignore
+        ...(filters.status !== 'all' && {
+          status: filters.status as MaintenanceStatus,
+        }),
         ...(filters.maintenanceCost && {
           maintenanceCost: filters.maintenanceCost,
         }),
@@ -188,7 +191,7 @@ export class MaintenanceService {
             lte: new Date(filters.suggestedNextMaintenance),
           },
         }),
-        ...(filters.status && { status: filters.status }),
+        ...(filters.status && { status: filters.status as MaintenanceStatus }),
       };
 
       const totalCost = await this.prisma.maintenance.aggregate({
