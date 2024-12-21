@@ -68,10 +68,11 @@ export const RentalHistoryItem = ({ rental }: { rental: RentalType }) => {
             <TableRow>
               <TableCell>Mã</TableCell>
               <TableCell>Mã thiết bị hoặc gói</TableCell>
+              <TableCell>Tên</TableCell>
               <TableCell>Số lượng</TableCell>
               <TableCell>Loại thời gian</TableCell>
               <TableCell>Đơn vị thời gian</TableCell>
-              <TableCell>Giá tiền</TableCell>
+
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
@@ -81,10 +82,10 @@ export const RentalHistoryItem = ({ rental }: { rental: RentalType }) => {
                 <TableRow key={item.id}>
                   <TableCell>{item.id}</TableCell>
                   <TableCell>{item.equipmentId ?? item.packageId ?? '-'}</TableCell>
+                  <TableCell>{item?.equipment?.name}</TableCell>
                   <TableCell>{item.quantity}</TableCell>
                   <TableCell>{item.durationType}</TableCell>
                   <TableCell>{item.durationValue}</TableCell>
-                  <TableCell>{formatMoney(item.price)}</TableCell>
                   <TableCell>
                     {isCurrentTimeInRange(rental) && rental.status === 'confirmed' && (
                       <Button color="error" onClick={() => setOpen(true)}>

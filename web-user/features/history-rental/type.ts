@@ -4,6 +4,9 @@ export type RentalItemType = {
   id: string
   rentalId: string
   equipmentId: string
+  equipment: {
+    name: string
+  }
   packageId: string | null
   quantity: number
   durationType: 'day' | 'week' | 'month'
