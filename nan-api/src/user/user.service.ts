@@ -7,7 +7,7 @@ import {
 
 import * as bcrypt from 'bcryptjs';
 
-import { Prisma, Role } from '@prisma/client';
+import { IdentityDocStatus, Prisma, Role } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -25,7 +25,6 @@ export class UserService {
   async findAllPagination(
     page: number,
     limit: number,
-    statusIdentityDoc:string,
     filters: UserFilterDto,
   ): Promise<{ data: any[]; total: number; page: number; limit: number }> {
     try {
@@ -54,6 +53,10 @@ export class UserService {
             filters.role === 'user' || filters.role === 'admin'
               ? filters.role
               : undefined,
+        }),
+
+        ...(filters.statusIdentityDoc !== 'all' && {
+          statusIdentityDoc: filters.statusIdentityDoc as IdentityDocStatus,
         }),
       };
 

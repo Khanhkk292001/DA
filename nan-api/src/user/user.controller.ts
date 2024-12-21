@@ -32,7 +32,7 @@ export class UserController {
   })
   async findAllPagination(
     @Query() filterDto: UserFilterDto,
-  ): Promise<{ data: User[]; total: number; page: number; limit: number}> {
+  ): Promise<{ data: User[]; total: number; page: number; limit: number }> {
     const { page, limit, ...filters } = filterDto;
     return this.userService.findAllPagination(page, limit, filters);
   }
