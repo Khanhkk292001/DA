@@ -118,9 +118,6 @@ const Sidebar = () => {
             <LogoutIcon />
           </IconButton>
         </Stack>
-        <Typography fontSize={9} lineHeight="11px" fontWeight={500} color="base.white">
-          ©︎ xxxx Podcast CMS.
-        </Typography>
       </Stack>
 
       <Modal
