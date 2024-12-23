@@ -86,9 +86,9 @@ const EquipmentByCategoryList = () => {
       },
     },
     {
-      header: 'Giá theo ngày',
-      accessorKey: 'priceDay',
-      cell: ({ row }) => formatCurrency(row.original.pricePerDay),
+      header: 'Giá mua sản phẩm',
+      accessorKey: 'basePrice',
+      cell: ({ row }) => formatCurrency(row.original.basePrice),
       meta: {
         headStyle: {
           padding: '0 16px',
@@ -100,23 +100,9 @@ const EquipmentByCategoryList = () => {
       },
     },
     {
-      header: 'Giá theo tuần',
-      accessorKey: 'priceWeek',
-      cell: ({ row }) => formatCurrency(row.original.pricePerWeek),
-      meta: {
-        headStyle: {
-          padding: '0 16px',
-        },
-        cellStyle: {
-          ...commonCellStyle,
-          width: 150,
-        },
-      },
-    },
-    {
-      header: 'Giá theo tháng',
-      accessorKey: 'priceMonth',
-      cell: ({ row }) => formatCurrency(row.original.pricePerMonth),
+      header: 'Giá thuê ',
+      accessorKey: 'rentalPrice',
+      cell: ({ row }) => formatCurrency(row.original.rentalPrice),
       meta: {
         headStyle: {
           padding: '0 16px',

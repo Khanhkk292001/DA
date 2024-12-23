@@ -31,6 +31,7 @@ export type EquipmentListType = {
 export type EquipmentSearchInputType = PaginationType & {
   name?: string
   categoryId?: string
+  filter?: string
 }
 
 export type EquipmentListQueryInputType = EquipmentSearchInputType & {
