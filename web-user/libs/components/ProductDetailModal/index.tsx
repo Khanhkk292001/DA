@@ -158,9 +158,6 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ open, handleClo
             <Typography variant="body1" color="text.secondary">
               Tình trạng: <span style={{ fontWeight: 600 }}>còn hàng</span>
             </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Thương hiệu: OXD
-            </Typography>
             <Typography variant="body1" fontWeight={600} sx={{ display: 'flex', gap: 5, alignItems: 'center' }}>
               Giá thuê :{' '}
               <Typography component="span" fontSize={20} fontWeight={700}>
