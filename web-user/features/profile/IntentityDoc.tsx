@@ -29,8 +29,8 @@ export const IntentityDoc = () => {
         return (
           <Stack direction="row" spacing={1} alignItems="center">
             <CheckCircleIcon color="error" />
-            <Typography variant="body1" sx={{ color: 'error.main' }}>
-              Bị từ chối
+            <Typography variant="body1" sx={{ color: 'warning.main' }}>
+              Chờ xác thực
             </Typography>
           </Stack>
         )
