@@ -11,7 +11,7 @@ export class RentalService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly notificationService: NotificationService,
-  ) {}
+  ) { }
 
   async findAllPagination(
     page: number,
@@ -152,26 +152,32 @@ export class RentalService {
     quantity: number,
     isIncrease: boolean,
   ): Promise<void> {
-    const equipment = await this.prisma.equipment.findUnique({
-      where: { id: equipmentId },
-    });
+    let equipment;
+    try {
+       equipment = await this.prisma.equipment.findUnique({
+        where: { id: equipmentId },
+      });
 
-    if (!equipment) {
-      throw new NotFoundException('Thiết bị không tồn tại.');
+      if (!equipment) {
+        throw new NotFoundException('Thiết bị không tồn tại.');
+      }
+
+      const newStock = isIncrease
+        ? equipment.stock + quantity
+        : equipment.stock - quantity;
+
+      if (newStock < 0) {
+        throw new Error('Không đủ số lượng thiết bị khả dụng.');
+      }
+
+      await this.prisma.equipment.update({
+        where: { id: equipmentId },
+        data: { stock: newStock },
+      });
+    } catch (error) {
+       
     }
 
-    const newStock = isIncrease
-      ? equipment.stock + quantity
-      : equipment.stock - quantity;
-
-    if (newStock < 0) {
-      throw new Error('Không đủ số lượng thiết bị khả dụng.');
-    }
-
-    await this.prisma.equipment.update({
-      where: { id: equipmentId },
-      data: { stock: newStock },
-    });
   }
 
   async confirmRental(id: string): Promise<Rental> {
@@ -188,6 +194,8 @@ export class RentalService {
       if (rental.status !== RentalStatus.pending) {
         throw new Error('Chỉ có thể xác nhận đơn thuê ở trạng thái pending.');
       }
+
+      console.log(rental)
 
       for (const item of rental.items) {
         await this.updateEquipmentStock(item.equipmentId, item.quantity, false);
