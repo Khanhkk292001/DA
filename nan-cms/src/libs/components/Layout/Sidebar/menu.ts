@@ -4,6 +4,7 @@ import CategoryIcon from '@mui/icons-material/Category'
 import DevicesIcon from '@mui/icons-material/Devices'
 import EventAvailableIcon from '@mui/icons-material/EventAvailable'
 import InventoryIcon from '@mui/icons-material/Inventory'
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn'
 import PersonIcon from '@mui/icons-material/Person'
 import PolicyIcon from '@mui/icons-material/Policy'
 import ReportProblemIcon from '@mui/icons-material/ReportProblem'
@@ -83,6 +84,13 @@ export const menus: MenuType[] = [
     title: 'Đơn thuê',
     icon: EventAvailableIcon,
     active_icon: EventAvailableIcon,
+    roles: ['admin', 'super_admin'],
+  },
+  {
+    href: '/returns',
+    title: 'Trả đồ',
+    icon: KeyboardReturnIcon,
+    active_icon: KeyboardReturnIcon,
     roles: ['admin', 'super_admin'],
   },
   {
