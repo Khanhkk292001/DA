@@ -141,6 +141,7 @@ model Equipment {
   damageReports DamageReport[]
   repairRecords RepairRecord[]
   usageRecords  UsageRecord[]
+  ReturnItem ReturnItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -421,4 +422,18 @@ model UsageRecord {
   updatedAt DateTime @updatedAt
 
   @@map("usage_records")
+}
+
+model ReturnItem {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  equipmentId String?    @db.ObjectId
+  equipment   Equipment? @relation(fields: [equipmentId], references: [id])
+  description String
+  quantity      Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+
+  @@map("return_items")
 }
