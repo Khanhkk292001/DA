@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateReturnDto } from './dto/create-return.dto';
 import { UpdateReturnDto } from './dto/update-return.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -10,6 +10,14 @@ export class ReturnService {
 
   async create(dto: CreateReturnDto): Promise<{ message: string }> {
     try {
+      const rental = await this.prisma.rental.findUnique({
+        where: { id: dto.rentalId },
+      });
+
+      if (!rental) {
+        throw new NotFoundException('Đơn thuê không tồn tại.');
+      }
+
       await this.prisma.returnItem.create({
         data: dto,
       });

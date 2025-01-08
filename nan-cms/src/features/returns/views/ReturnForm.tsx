@@ -4,18 +4,18 @@ import { DetailItem } from '@/features/article/components'
 import { FormLayout, Input } from '@/libs/components/Form'
 import { formatDate } from '@/utils/format'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Stack } from '@mui/material'
+import { Checkbox, FormControlLabel, Stack } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
 import { useEffect } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { useEquipmentCreate, useEquipmentDetail, useEquipmentUpdate } from '../hooks'
-import { EquipmentCreateInputSchema, EquipmentCreateInputType } from '../type'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { useEquipmentDetail, useEquipmentUpdate, useReturnCreate } from '../hooks'
+import { ReturnCreateInputSchema, ReturnCreateInputType } from '../type'
 
 const ReturnForm = () => {
   const router = useRouter()
-  const { equipmentsId } = useParams()
-  const { data: equipmentDetail } = useEquipmentDetail(equipmentsId as string)
+  const { returnId } = useParams()
+  const { data: equipmentDetail } = useEquipmentDetail(returnId as string)
 
   const {
     control,
@@ -23,17 +23,13 @@ const ReturnForm = () => {
     setError,
     setValue,
     formState: { isDirty },
-  } = useForm<EquipmentCreateInputType>({
+  } = useForm<ReturnCreateInputType>({
     defaultValues: {
-      name: '',
-      image: '',
+      isFullyReturned: true,
+      rentalId: '',
       description: '',
-      basePrice: 0,
-      rentalPrice: 0,
-      stock: 0,
-      categoryId: '',
     },
-    resolver: zodResolver(EquipmentCreateInputSchema),
+    resolver: zodResolver(ReturnCreateInputSchema),
   })
 
   useEffect(() => {
@@ -51,38 +47,46 @@ const ReturnForm = () => {
     }
   }, [setValue, equipmentDetail])
 
-  const { mutate: createEquipment, isPending: isPendingCreate } = useEquipmentCreate(setError)
+  const { mutate: createReturn, isPending: isPendingCreate } = useReturnCreate(setError)
   const { mutate: updateEquipment, isPending: isPendingUpdate } = useEquipmentUpdate(setError)
 
-  const onSubmit: SubmitHandler<EquipmentCreateInputType> = (data) => {
-    const submitData = { ...data, id: equipmentsId as string }
+  const onSubmit: SubmitHandler<ReturnCreateInputType> = (data) => {
+    const submitData = { ...data, id: returnId as string }
 
     const successCallback = () => {
-      enqueueSnackbar(
-        equipmentsId ? 'Cập nhật thiết bị thành công' : 'Thêm mới thiết bị thành công',
-        {
-          variant: 'success',
-        },
-      )
-      router.push(equipmentsId ? `/equipments/${equipmentsId}/detail` : '/equipments')
+      enqueueSnackbar(returnId ? 'Cập nhật thành công' : 'Thêm mới thành công', {
+        variant: 'success',
+      })
+      router.push(returnId ? `/returns/${returnId}/detail` : '/returns')
     }
 
-    if (equipmentsId) {
+    if (returnId) {
       updateEquipment(submitData, { onSuccess: successCallback })
     } else {
-      createEquipment(data, { onSuccess: successCallback })
+      createReturn(data, { onSuccess: successCallback })
     }
   }
 
   return (
     <FormLayout
       onSubmit={handleSubmit(onSubmit)}
-      title={equipmentsId ? 'Cập nhật' : 'Tạo mới'}
+      title={returnId ? 'Cập nhật' : 'Tạo mới'}
       isDirty={isDirty}
       submitLoading={isPendingCreate || isPendingUpdate}
     >
       <Stack direction="row" spacing={2}>
         <Stack spacing={2} width={{ xs: '100%', lg: '50%' }}>
+          <Controller
+            name="isFullyReturned"
+            control={control}
+            defaultValue={true}
+            render={({ field }) => (
+              <FormControlLabel
+                control={<Checkbox {...field} checked={field.value} />}
+                label="Đã trả đầy đủ"
+              />
+            )}
+          />
           <Stack direction={{ xs: 'column', lg: 'row' }} gap={4} alignItems={{ lg: 'center' }}>
             <DetailItem
               label="ID"
@@ -94,10 +98,10 @@ const ReturnForm = () => {
           <Stack direction="column" gap={2}>
             <Input
               control={control}
-              name="name"
-              label="Id thiết bị"
+              name="rentalId"
+              label="Id đơn thuê"
               labelLeft
-              placeholder="Id thiết bị"
+              placeholder="Id đơn thuê"
               fullWidth
             />
             <Input
@@ -106,16 +110,6 @@ const ReturnForm = () => {
               label="Mô tả"
               labelLeft
               placeholder="Mô tả"
-              fullWidth
-            />
-
-            <Input
-              control={control}
-              type="number"
-              name="stock"
-              label="Số lượng"
-              labelLeft
-              placeholder="Số lượng"
               fullWidth
             />
 

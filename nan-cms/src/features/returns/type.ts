@@ -47,45 +47,20 @@ export type QueryInputEquipmentDetailType = {
   column?: string
 }
 
-export const EquipmentCreateInputSchema = z.object({
-  name: z
-    .string()
-    .min(1, { message: 'Tên thiết bị là bắt buộc' })
-    .max(100, { message: 'Tên thiết bị không được dài quá 100 ký tự' }),
-
-  image: z.string().url({ message: 'Hình ảnh phải là một URL hợp lệ' }),
-
+export const ReturnCreateInputSchema = z.object({
   description: z
     .string()
     .min(10, { message: 'Mô tả phải có ít nhất 10 ký tự' })
     .max(1000, { message: 'Mô tả không được dài quá 1000 ký tự' }),
 
-  basePrice: z
-    .union([z.string(), z.number()])
-    .transform((val) => (typeof val === 'string' ? parseFloat(val) : val))
-    .refine((val) => !isNaN(val) && val > 0, { message: 'Giá theo ngày phải là số dương' })
-    .optional(),
+  rentalId: z.string().min(1, { message: 'ID đơn mua là bắt buộc' }),
 
-  rentalPrice: z
-    .union([z.string(), z.number()])
-    .transform((val) => (typeof val === 'string' ? parseFloat(val) : val))
-    .refine((val) => !isNaN(val) && val > 0, { message: 'Giá theo tuần phải là số dương' })
-    .optional(),
-
-  stock: z
-    .union([z.string(), z.number()])
-    .transform((val) => (typeof val === 'string' ? parseFloat(val) : val))
-    .refine((val) => Number.isInteger(val) && val > 0, {
-      message: 'Số lượng phải là số nguyên dương',
-    })
-    .optional(),
-
-  categoryId: z.string().min(1, { message: 'ID danh mục là bắt buộc' }),
+  isFullyReturned: z.boolean().default(true),
 })
 
-export const EquipmentUpdateInputSchema = EquipmentCreateInputSchema.extend({
-  id: z.string().min(1, { message: 'ID thiết bị là bắt buộc' }),
+export const EquipmentUpdateInputSchema = ReturnCreateInputSchema.extend({
+  id: z.string().min(1, { message: 'ID đơn mua là bắt buộc' }),
 })
 
-export type EquipmentCreateInputType = TypeOf<typeof EquipmentCreateInputSchema>
+export type ReturnCreateInputType = TypeOf<typeof ReturnCreateInputSchema>
 export type EquipmentUpdateInputType = TypeOf<typeof EquipmentUpdateInputSchema>

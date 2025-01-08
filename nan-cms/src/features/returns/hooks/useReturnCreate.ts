@@ -1,10 +1,10 @@
-import { createEquipment } from '@/libs/api/equipments'
+import { createReturn } from '@/libs/api/returns'
 import { ErrorTypeResponse } from '@/libs/types/axios'
 import { useMutation } from '@tanstack/react-query'
 import { UseFormSetError } from 'react-hook-form'
-import { EquipmentCreateInputType } from '../type'
+import { ReturnCreateInputType } from '../type'
 
-export const useEquipmentCreate = (setError: UseFormSetError<EquipmentCreateInputType>) => {
+export const useReturnCreate = (setError: UseFormSetError<ReturnCreateInputType>) => {
   const handleMutationError = (error: ErrorTypeResponse) => {
     const { data: responseData } = error.response || {}
     const errorValidation = responseData?.errors
@@ -12,14 +12,15 @@ export const useEquipmentCreate = (setError: UseFormSetError<EquipmentCreateInpu
     if (errorValidation) {
       Object.entries(errorValidation).forEach(([key, message]) => {
         if (message) {
-          setError(key as keyof EquipmentCreateInputType, { message })
+          console.log(message)
+          setError(key as keyof ReturnCreateInputType, { message })
         }
       })
     }
   }
 
   const mutation = useMutation({
-    mutationFn: createEquipment,
+    mutationFn: createReturn,
     onError: handleMutationError,
   })
 
