@@ -30,7 +30,7 @@ export type ReturnListType = {
 } & PaginationType
 
 export type ReturnSearchInputType = PaginationType & {
-  name?: string
+  description?: string
   categoryId?: string
   filter?: string
 }

@@ -3,12 +3,12 @@
 import { FilterBar, FilterColumn } from '@/libs/components/Table/FilterBar'
 import { ExVoid } from '@/libs/types/utils'
 import { Stack, Typography } from '@mui/material'
-import { RentalSearchInputType } from '../type'
+import { ReturnSearchInputType } from '../type'
 
 const ReturnFilter = () => {
-  const filterColumn: FilterColumn<ExVoid<RentalSearchInputType>>[] = [
+  const filterColumn: FilterColumn<ExVoid<ReturnSearchInputType>>[] = [
     {
-      field: 'status',
+      field: 'description',
       type: 'text',
       placeholder: 'Tìm kiếm',
       defaultValue: '',
