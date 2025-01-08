@@ -1,17 +1,16 @@
 import {
   EquipmentDetailResponseType,
-  EquipmentListQueryInputType,
   EquipmentListType,
   EquipmentUpdateInputType,
   QueryInputEquipmentDetailType,
 } from '@/features/equipments'
-import { ReturnCreateInputType } from '@/features/returns'
+import { ReturnCreateInputType, ReturnListQueryInputType, ReturnListType } from '@/features/returns'
 import request from '../config/axios'
 
-export const getListEquipments = async (params: EquipmentListQueryInputType) => {
+export const getListReturns = async (params: ReturnListQueryInputType) => {
   const { page, limit, name } = params
   try {
-    const response = await request.get<EquipmentListType>('/equipments/all/pagination', {
+    const response = await request.get<ReturnListType>('/returns/all/pagination', {
       params: {
         page,
         limit,

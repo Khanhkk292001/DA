@@ -89,7 +89,7 @@ function TableBottomTab() {
   const path = (pathname.split('/')[1] ? pathname.split('/')[1] : '/') as ActionPath
   const queryClient = useQueryClient()
   const { mutate: handleDelete, isPending } = useMutation({
-    mutationFn: defaultActionApi[path].delete as (ids: string[]) => Promise<void>,
+    mutationFn: defaultActionApi[path]?.delete as (ids: string[]) => Promise<void>,
   })
   const { setPageIndex, handleChangePagination } = usePaginationHandler()
 
@@ -198,7 +198,7 @@ function TableBottomTab() {
       <Modal
         open={openModal}
         textSubmit="削除する"
-        title={defaultActionApi[path].title}
+        title={defaultActionApi[path]?.title}
         description={`${selectedIds.map((item) => item.name).join('、 ')}を削除してよろしいですか？`}
         isLoading={isPending}
         handleCloseModal={handleCloseModal}

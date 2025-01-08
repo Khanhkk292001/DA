@@ -1,7 +1,7 @@
 import { PaginationType } from '@/libs/types/pagination'
 import { TypeOf, z } from 'zod'
 
-export type EquipmentType = {
+export type ReturnType = {
   id: string
   name: string
   image: string
@@ -15,31 +15,32 @@ export type EquipmentType = {
   updatedAt?: string
   equipmentId?: string
   maintainCount: number
+  isFullyReturned: boolean
 }
 
-export type EquipmentDetailType = EquipmentType & {
+export type ReturnDetailType = ReturnType & {
   cartItems?: string[]
   rentalItems?: string[]
   packages?: string[]
   maintenances?: string[]
 }
 
-export type EquipmentListType = {
-  data: EquipmentType[]
+export type ReturnListType = {
+  data: ReturnDetailType[]
 } & PaginationType
 
-export type EquipmentSearchInputType = PaginationType & {
+export type ReturnSearchInputType = PaginationType & {
   name?: string
   categoryId?: string
   filter?: string
 }
 
-export type EquipmentListQueryInputType = EquipmentSearchInputType & {
+export type ReturnListQueryInputType = ReturnSearchInputType & {
   sortBy?: 'asc' | 'desc'
 }
 
 export type EquipmentDetailResponseType = {
-  data: EquipmentDetailType
+  data: ReturnDetailType
 }
 
 export type QueryInputEquipmentDetailType = {
