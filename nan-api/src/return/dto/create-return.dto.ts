@@ -1,11 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsMongoId,
-  IsNotEmpty,
-  IsNumber,
-  IsPositive,
-  IsString,
-} from 'class-validator';
+import { IsBoolean, IsMongoId, IsNotEmpty, IsString } from 'class-validator';
 export class CreateReturnDto {
   @ApiProperty({
     description: 'Mô tả',
@@ -15,17 +9,17 @@ export class CreateReturnDto {
   description: string;
 
   @ApiProperty({
-    description: 'Số lượng',
-  })
-  @IsNotEmpty()
-  @IsNumber()
-  @IsPositive()
-  quantity: number;
-
-  @ApiProperty({
-    description: 'Mã thiết bị',
+    description: 'Mã đơn thuê',
   })
   @IsNotEmpty()
   @IsMongoId()
-  equipmentId: string;
+  rentalId: string;
+
+  @ApiProperty({
+    description: 'Đã trả đầy đủ hay chưa',
+    default: true,
+  })
+  @IsNotEmpty()
+  @IsBoolean()
+  isFullyReturned: boolean;
 }

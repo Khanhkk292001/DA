@@ -141,7 +141,6 @@ model Equipment {
   damageReports DamageReport[]
   repairRecords RepairRecord[]
   usageRecords  UsageRecord[]
-  ReturnItem ReturnItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -240,6 +239,7 @@ model Rental {
   updatedAt DateTime @updatedAt
 
   @@map("rentals")
+  ReturnItem ReturnItem[]
 }
 
 // Mục thuê thiết bị
@@ -426,10 +426,10 @@ model UsageRecord {
 
 model ReturnItem {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  equipmentId String?    @db.ObjectId
-  equipment   Equipment? @relation(fields: [equipmentId], references: [id])
+  rentalId      String?   @db.ObjectId
+  rental        Rental?   @relation(fields: [rentalId], references: [id])
   description String
-  quantity      Int
+  isFullyReturned Boolean  @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
