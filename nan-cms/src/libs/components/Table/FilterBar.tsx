@@ -126,7 +126,6 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
   const onSubmit = (data: FilterInput) => {
     Object.entries(data).forEach(([name, value]) => {
       const column = getColumnByField(columns, name as keyof FilterInput)
-
       handleFilter(column, value)
     })
   }
@@ -265,7 +264,6 @@ export function FilterBar<FilterInput extends FieldValues, TData>({
           </ButtonSearch>
         )}
       </Stack>
-
       <Stack spacing={2}>
         {buttonSearchUnderButtonCreate && (
           <ButtonSearch variant="outlined" type="submit">

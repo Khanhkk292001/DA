@@ -1,6 +1,7 @@
 'use client'
 
 import { ReactTable } from '@/libs/components/Table'
+import { Chip } from '@mui/material'
 import { ColumnDef } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
 import { useReturnListQuery } from '../hooks'
@@ -9,8 +10,6 @@ import { ReturnType } from '../type'
 const ReturnList = () => {
   const { tableData, totalPages } = useReturnListQuery()
   const router = useRouter()
-
-  console.log({ tableData, totalPages })
 
   const commonCellStyle = {
     fontSize: 14,
@@ -67,13 +66,20 @@ const ReturnList = () => {
     },
     {
       header: 'Trạng thái trả',
-      accessorFn: (row) => (row.isFullyReturned ? 'Đã trả đầy đủ' : 'Chưa trả đầy đủ'),
+      cell: ({ row }) => {
+        return (
+          <Chip
+            label={row?.original?.isFullyReturned ? 'Đã trả đầy đủ' : 'Chưa trả đầy đủ'}
+            variant="outlined"
+            size="small"
+          />
+        )
+      },
       meta: {
         headStyle: {
           padding: '0 16px',
         },
         cellStyle: {
-          ...commonCellStyle,
           width: 200,
         },
       },
