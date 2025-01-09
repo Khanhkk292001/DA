@@ -99,7 +99,12 @@ export class ReturnService {
     return `This action updates a #${id} return`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} return`;
+  async remove(id: string): Promise<{ message: string }> {
+    try {
+      await this.prisma.returnItem.delete({ where: { id } });
+      return { message: 'Xóa thành công' };
+    } catch (error) {
+      prismaErrorHandler(error);
+    }
   }
 }

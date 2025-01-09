@@ -84,9 +84,9 @@ export const getReturnDetail = async ({ column, returnId }: QueryInputReturnDeta
   }
 }
 
-export const deleteEquipment = async (equipmentId: string) => {
+export const deleteReturn = async (returnId: string) => {
   try {
-    const response = await request.delete(`/equipments/remove/${equipmentId}`)
+    const response = await request.delete(`/returns/remove/${returnId}`)
     return response.data
   } catch (error) {
     throw error

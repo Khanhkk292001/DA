@@ -1,4 +1,4 @@
-export * from './useDeleteEquipment'
+export * from './useDeleteReturn'
 export * from './useEquipmentDetail'
 export * from './useEquipmentUpdate'
 export * from './useReturnCreate'

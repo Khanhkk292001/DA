@@ -8,25 +8,25 @@ import { Box, Stack } from '@mui/material'
 import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
 import { useState } from 'react'
-import { useDeleteEquipment, useReturnDetailQuery } from '../hooks'
+import { useDeleteReturn, useReturnDetailQuery } from '../hooks'
 
 const ReturnDetail = () => {
   const { returnId } = useParams()
   const router = useRouter()
   const [open, setOpen] = useState(false)
-  const { deleteEquipment } = useDeleteEquipment()
+  const { deleteReturn } = useDeleteReturn()
 
   const handleOpenModal = () => setOpen(true)
   const handleCloseModal = () => setOpen(false)
 
-  const handleDeleteEquipment = () => {
-    deleteEquipment(returnId as string, {
+  const handleDeleteReturn = () => {
+    deleteReturn(returnId as string, {
       onSuccess: () => {
-        enqueueSnackbar('Xoá thiết bị thành công', { variant: 'success' })
-        router.push('/equipments')
+        enqueueSnackbar('Xóa đơn trả thành công', { variant: 'success' })
+        router.push('/returns')
       },
       onError: () => {
-        enqueueSnackbar('Không thể xoá do thiết bị đang được thuê', { variant: 'error' })
+        enqueueSnackbar('Xóa đơn trả thiết bị không thành công', { variant: 'error' })
       },
     })
   }
@@ -63,7 +63,7 @@ const ReturnDetail = () => {
       <Modal
         handleCloseModal={handleCloseModal}
         open={open}
-        handleSubmit={handleDeleteEquipment}
+        handleSubmit={handleDeleteReturn}
         textSubmit="Đồng ý"
         description="Bạn có thực sự muốn xóa đơn này?"
         title="Xóa đơn trả thiết bị"

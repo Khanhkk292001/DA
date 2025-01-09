@@ -58,9 +58,11 @@ export class ReturnController {
   update(@Param('id') id: string, @Body() updateReturnDto: UpdateReturnDto) {
     return this.returnService.update(+id, updateReturnDto);
   }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.returnService.remove(+id);
+  @Delete('remove/:id')
+  @ApiOperation({
+    summary: 'Xóa  theo ID',
+  })
+  remove(@Param('id') id: string): Promise<{ message: string }> {
+    return this.returnService.remove(id);
   }
 }
