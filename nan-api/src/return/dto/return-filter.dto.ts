@@ -8,6 +8,11 @@ export class ReturnFilterDto {
   @IsString()
   description?: string;
 
+  @ApiProperty({ description: 'isFullyReturned', required: false })
+  @IsOptional()
+  @IsString()
+  isFullyReturned?: string;
+
   @ApiProperty({ description: 'ID đơn mua', required: false })
   @IsOptional()
   @IsString()

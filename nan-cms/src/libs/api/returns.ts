@@ -10,13 +10,14 @@ import {
 import request from '../config/axios'
 
 export const getListReturns = async (params: ReturnListQueryInputType) => {
-  const { page, limit, description } = params
+  const { page, limit, description, isFullyReturned } = params
   try {
     const response = await request.get<ReturnListType>('/returns/all/pagination', {
       params: {
         page,
         limit,
         description,
+        isFullyReturned,
       },
     })
     return response.data

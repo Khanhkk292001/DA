@@ -9,13 +9,14 @@ import {
 import request from '../config/axios'
 
 export const getListRentals = async (params: RentalListQueryInputType) => {
-  const { page, limit, status } = params
+  const { page, limit, status, isFullyReturned } = params
   try {
     const response = await request.get<RentalListType>('/rentals/all/pagination', {
       params: {
         page,
         limit,
         status,
+        isFullyReturned,
       },
     })
     return response.data

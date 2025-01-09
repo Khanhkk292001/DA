@@ -4,12 +4,14 @@ import { ReactTable } from '@/libs/components/Table'
 import { Chip } from '@mui/material'
 import { ColumnDef } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useReturnListQuery } from '../hooks'
 import { ReturnType } from '../type'
 
 const ReturnList = () => {
-  const { tableData, totalPages } = useReturnListQuery()
   const router = useRouter()
+  const [isFullyReturned, setIsFullyReturned] = useState<string>('all')
+  const { tableData, totalPages } = useReturnListQuery(isFullyReturned)
 
   const commonCellStyle = {
     fontSize: 14,
@@ -65,7 +67,34 @@ const ReturnList = () => {
       },
     },
     {
-      header: 'Trạng thái trả',
+      header: () => (
+        <div>
+          <select
+            value={isFullyReturned}
+            onChange={(e) => {
+              setIsFullyReturned(e.target.value)
+            }}
+            style={{
+              marginLeft: '8px',
+              padding: '4px',
+              fontSize: '14px',
+            }}
+          >
+            <option value="all">Tất cả</option>
+            <option value="1">Đã trả đầy đủ</option>
+            <option value="0">Chưa trả đầy đủ</option>
+          </select>
+        </div>
+      ),
+      accessorKey: 'isFullyReturned',
+      meta: {
+        headStyle: {
+          // padding: '0 16px',
+        },
+        cellStyle: {
+          ...commonCellStyle,
+        },
+      },
       cell: ({ row }) => {
         return (
           <Chip
@@ -74,14 +103,6 @@ const ReturnList = () => {
             size="small"
           />
         )
-      },
-      meta: {
-        headStyle: {
-          padding: '0 16px',
-        },
-        cellStyle: {
-          width: 200,
-        },
       },
     },
   ]

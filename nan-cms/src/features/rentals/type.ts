@@ -33,6 +33,7 @@ export type RentalListType = {
 
 export type RentalSearchInputType = PaginationType & {
   status?: string
+  isFullyReturned?: string
   page?: string
   next?: string
 }

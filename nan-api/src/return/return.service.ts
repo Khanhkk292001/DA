@@ -28,6 +28,10 @@ export class ReturnService {
             mode: Prisma.QueryMode.insensitive,
           },
         }),
+        // @ts-ignore
+        ...(filters.isFullyReturned !== 'all' && {
+          isFullyReturned: filters.isFullyReturned == '1' ? true : false,
+        }),
         ...(filters.rentalId && {
           categoryId: filters.rentalId,
         }),

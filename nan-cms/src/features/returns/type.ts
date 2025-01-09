@@ -33,6 +33,7 @@ export type ReturnSearchInputType = PaginationType & {
   description?: string
   categoryId?: string
   filter?: string
+  isFullyReturned: string
 }
 
 export type ReturnListQueryInputType = ReturnSearchInputType & {
