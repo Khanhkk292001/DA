@@ -32,6 +32,7 @@ export class ReturnController {
     const { page, limit, ...filters } = filterDto;
     return this.returnService.findAllPagination(page, limit, filters);
   }
+
   @Post('create')
   @ApiOperation({
     summary: 'Tạo mới',
@@ -40,14 +41,17 @@ export class ReturnController {
     return this.returnService.create(createReturnDto);
   }
 
+  @Get('get-by/:id')
+  @ApiOperation({
+    summary: 'Thiết bị theo ID',
+  })
+  findOne(@Param('id') id: string): Promise<{ data: ReturnItem }> {
+    return this.returnService.findOne(id);
+  }
+
   @Get()
   findAll() {
     return this.returnService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.returnService.findOne(+id);
   }
 
   @Patch(':id')

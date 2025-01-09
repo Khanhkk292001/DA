@@ -81,8 +81,18 @@ export class ReturnService {
     return `This action returns all return`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} return`;
+  async findOne(id: string): Promise<{ data: ReturnItem }> {
+    try {
+      const data = await this.prisma.returnItem.findUniqueOrThrow({
+        where: { id },
+      });
+
+      return {
+        data,
+      };
+    } catch (error) {
+      prismaErrorHandler(error);
+    }
   }
 
   update(id: number, updateReturnDto: UpdateReturnDto) {

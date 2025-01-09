@@ -2,9 +2,14 @@ import {
   EquipmentDetailResponseType,
   EquipmentListType,
   EquipmentUpdateInputType,
-  QueryInputEquipmentDetailType,
 } from '@/features/equipments'
-import { ReturnCreateInputType, ReturnListQueryInputType, ReturnListType } from '@/features/returns'
+import {
+  QueryInputReturnDetailType,
+  ReturnCreateInputType,
+  ReturnDetailResponseType,
+  ReturnListQueryInputType,
+  ReturnListType,
+} from '@/features/returns'
 import request from '../config/axios'
 
 export const getListReturns = async (params: ReturnListQueryInputType) => {
@@ -66,19 +71,13 @@ export const updateEquipment = async (data: EquipmentUpdateInputType) => {
   }
 }
 
-export const getEquipmentDetail = async ({
-  column,
-  equipmentId,
-}: QueryInputEquipmentDetailType) => {
+export const getReturnDetail = async ({ column, returnId }: QueryInputReturnDetailType) => {
   try {
-    const response = await request.get<EquipmentDetailResponseType>(
-      `/equipments/get-by/${equipmentId}`,
-      {
-        params: {
-          column,
-        },
+    const response = await request.get<ReturnDetailResponseType>(`/returns/get-by/${returnId}`, {
+      params: {
+        column,
       },
-    )
+    })
     return response.data.data
   } catch (error) {
     throw error

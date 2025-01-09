@@ -1,6 +1,6 @@
 export * from './useDeleteEquipment'
 export * from './useEquipmentDetail'
-export * from './useEquipmentDetailQuery'
 export * from './useEquipmentUpdate'
 export * from './useReturnCreate'
+export * from './useReturnDetailQuery'
 export * from './useReturnListQuery'

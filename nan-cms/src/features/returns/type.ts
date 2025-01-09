@@ -9,7 +9,7 @@ export type ReturnType = {
   basePrice?: number
   rentalPrice?: number
   stock?: number
-  categoryId: string
+  rentalId: string
   category?: string
   createdAt?: string
   updatedAt?: string
@@ -39,12 +39,12 @@ export type ReturnListQueryInputType = ReturnSearchInputType & {
   sortBy?: 'asc' | 'desc'
 }
 
-export type EquipmentDetailResponseType = {
+export type ReturnDetailResponseType = {
   data: ReturnDetailType
 }
 
-export type QueryInputEquipmentDetailType = {
-  equipmentId?: string
+export type QueryInputReturnDetailType = {
+  returnId?: string
   column?: string
 }
 
