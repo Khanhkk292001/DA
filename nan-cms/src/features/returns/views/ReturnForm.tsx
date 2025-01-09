@@ -100,14 +100,17 @@ const ReturnForm = () => {
               placeholder="Id đơn thuê"
               fullWidth
             />
-            <Input
-              control={control}
-              name="description"
-              label="Mô tả"
-              labelLeft
-              placeholder="Mô tả"
-              fullWidth
+          <Input
+            control={control}
+            name="description"
+            label="Mô tả"
+            labelLeft
+            placeholder="Mô tả"
+            fullWidth
+            multiline 
+            rows={4} 
             />
+
 
             <DetailItem label="Ngày tạo" value={formatDate(returnDetail?.createdAt as string)} />
             <DetailItem
