@@ -59,9 +59,9 @@ export const ReturnCreateInputSchema = z.object({
   isFullyReturned: z.boolean().default(true),
 })
 
-export const EquipmentUpdateInputSchema = ReturnCreateInputSchema.extend({
+export const ReturnUpdateInputSchema = ReturnCreateInputSchema.extend({
   id: z.string().min(1, { message: 'ID đơn mua là bắt buộc' }),
 })
 
 export type ReturnCreateInputType = TypeOf<typeof ReturnCreateInputSchema>
-export type EquipmentUpdateInputType = TypeOf<typeof EquipmentUpdateInputSchema>
+export type ReturnUpdateInputType = TypeOf<typeof ReturnUpdateInputSchema>

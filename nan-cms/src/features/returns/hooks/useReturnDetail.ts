@@ -1,10 +1,10 @@
-import { getEquipment } from '@/libs/api/equipments'
+import { getReturn } from '@/libs/api/returns'
 import { useQuery } from '@tanstack/react-query'
 
-export const useEquipmentDetail = (id: string) => {
+export const useReturnDetail = (id: string) => {
   const data = useQuery({
     queryKey: ['equipment-detail', id],
-    queryFn: () => getEquipment(id),
+    queryFn: () => getReturn(id),
     enabled: !!id,
   })
 

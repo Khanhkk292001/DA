@@ -54,10 +54,17 @@ export class ReturnController {
     return this.returnService.findAll();
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateReturnDto: UpdateReturnDto) {
-    return this.returnService.update(+id, updateReturnDto);
+  @Patch('update/:id')
+  @ApiOperation({
+    summary: 'Cập nhật theo ID',
+  })
+  update(
+    @Param('id') id: string,
+    @Body() updateReturnDto: UpdateReturnDto,
+  ): Promise<{ message: string }> {
+    return this.returnService.update(id, updateReturnDto);
   }
+
   @Delete('remove/:id')
   @ApiOperation({
     summary: 'Xóa  theo ID',

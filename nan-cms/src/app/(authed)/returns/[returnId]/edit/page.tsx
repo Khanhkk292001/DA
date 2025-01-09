@@ -1,5 +1,5 @@
-import { EquipmentForm } from '@/features/equipments'
+import { ReturnForm } from '@/features/returns'
 
 export default function Page() {
-  return <EquipmentForm />
+  return <ReturnForm />
 }

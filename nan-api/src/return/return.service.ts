@@ -95,8 +95,16 @@ export class ReturnService {
     }
   }
 
-  update(id: number, updateReturnDto: UpdateReturnDto) {
-    return `This action updates a #${id} return`;
+  async update(id: string, dto: UpdateReturnDto): Promise<{ message: string }> {
+    try {
+      await this.prisma.returnItem.update({
+        where: { id },
+        data: dto,
+      });
+      return { message: 'Cập nhật thành công' };
+    } catch (error) {
+      prismaErrorHandler(error);
+    }
   }
 
   async remove(id: string): Promise<{ message: string }> {

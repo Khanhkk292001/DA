@@ -9,13 +9,15 @@ import { useParams, useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
 import { useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { useEquipmentDetail, useEquipmentUpdate, useReturnCreate } from '../hooks'
+import { useReturnCreate, useReturnDetail, useReturnUpdate } from '../hooks'
 import { ReturnCreateInputSchema, ReturnCreateInputType } from '../type'
 
 const ReturnForm = () => {
   const router = useRouter()
   const { returnId } = useParams()
-  const { data: equipmentDetail } = useEquipmentDetail(returnId as string)
+  const { data: returnDetail } = useReturnDetail(returnId as string)
+
+  console.log(returnDetail, 'retunDetail')
 
   const {
     control,
@@ -33,22 +35,16 @@ const ReturnForm = () => {
   })
 
   useEffect(() => {
-    if (equipmentDetail) {
-      const { name, image, description, basePrice, rentalPrice, stock, categoryId } =
-        equipmentDetail
-      setValue('name', name as string)
-      setValue('image', image as string)
+    if (returnDetail) {
+      const { description, rentalId, isFullyReturned } = returnDetail
       setValue('description', description as string)
-      setValue('basePrice', basePrice as number)
-      setValue('rentalPrice', rentalPrice as number)
-      setValue('stock', stock as number)
-      setValue('categoryId', categoryId as string)
-      setValue('image', image as string)
+      setValue('rentalId', rentalId as string)
+      setValue('isFullyReturned', isFullyReturned as boolean)
     }
-  }, [setValue, equipmentDetail])
+  }, [setValue, returnDetail])
 
   const { mutate: createReturn, isPending: isPendingCreate } = useReturnCreate(setError)
-  const { mutate: updateEquipment, isPending: isPendingUpdate } = useEquipmentUpdate(setError)
+  const { mutate: updateReturn, isPending: isPendingUpdate } = useReturnUpdate(setError)
 
   const onSubmit: SubmitHandler<ReturnCreateInputType> = (data) => {
     const submitData = { ...data, id: returnId as string }
@@ -61,7 +57,7 @@ const ReturnForm = () => {
     }
 
     if (returnId) {
-      updateEquipment(submitData, { onSuccess: successCallback })
+      updateReturn(submitData, { onSuccess: successCallback })
     } else {
       createReturn(data, { onSuccess: successCallback })
     }
@@ -90,7 +86,7 @@ const ReturnForm = () => {
           <Stack direction={{ xs: 'column', lg: 'row' }} gap={4} alignItems={{ lg: 'center' }}>
             <DetailItem
               label="ID"
-              value={equipmentDetail?.id || '-'}
+              value={returnDetail?.id || '-'}
               valueSx={{ width: { xs: '100%', lg: 500 } }}
             />
           </Stack>
@@ -113,10 +109,10 @@ const ReturnForm = () => {
               fullWidth
             />
 
-            <DetailItem label="Ngày tạo" value={formatDate(equipmentDetail?.createdAt as string)} />
+            <DetailItem label="Ngày tạo" value={formatDate(returnDetail?.createdAt as string)} />
             <DetailItem
               label="Ngày cập nhật"
-              value={formatDate(equipmentDetail?.updatedAt as string)}
+              value={formatDate(returnDetail?.updatedAt as string)}
             />
           </Stack>
         </Stack>

@@ -1,14 +1,11 @@
-import {
-  EquipmentDetailResponseType,
-  EquipmentListType,
-  EquipmentUpdateInputType,
-} from '@/features/equipments'
+import { EquipmentListType } from '@/features/equipments'
 import {
   QueryInputReturnDetailType,
   ReturnCreateInputType,
   ReturnDetailResponseType,
   ReturnListQueryInputType,
   ReturnListType,
+  ReturnUpdateInputType,
 } from '@/features/returns'
 import request from '../config/axios'
 
@@ -34,9 +31,9 @@ export async function getEquipments() {
   return response.data.data
 }
 
-export const getEquipment = async (id: string) => {
+export const getReturn = async (id: string) => {
   try {
-    const response = await request.get<EquipmentDetailResponseType>(`/equipments/get-by/${id}`)
+    const response = await request.get<ReturnDetailResponseType>(`/returns/get-by/${id}`)
     return response.data.data
   } catch (error) {
     throw error
@@ -56,7 +53,7 @@ export const createReturn = async (data: ReturnCreateInputType) => {
   }
 }
 
-export const updateEquipment = async (data: EquipmentUpdateInputType) => {
+export const updateReturn = async (data: ReturnUpdateInputType) => {
   try {
     const { id, ...dataRequest } = data
 
@@ -64,7 +61,7 @@ export const updateEquipment = async (data: EquipmentUpdateInputType) => {
       ...dataRequest,
     }
 
-    const response = await request.patch(`/equipments/update/${id}`, updatedData)
+    const response = await request.patch(`/returns/update/${id}`, updatedData)
     return response.data
   } catch (error) {
     throw error
