@@ -65,9 +65,6 @@ export default function LoginForm({ onSwitch }) {
         disabled={isPending}
       />
 
-      <Typography variant="subtitle1">
-        This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
-      </Typography>
 
       <Stack direction="row" spacing={3}>
         <Button type="submit" variant="contained" color="primary" disabled={isPending}>
