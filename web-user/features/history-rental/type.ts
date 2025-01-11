@@ -8,6 +8,7 @@ export type RentalItemType = {
     name: string
   }
   packageId: string | null
+  name: string
   quantity: number
   durationType: 'day' | 'week' | 'month'
   durationValue: number

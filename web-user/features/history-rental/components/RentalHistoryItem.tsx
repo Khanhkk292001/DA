@@ -37,7 +37,7 @@ export const RentalHistoryItem = ({ rental }: { rental: RentalType }) => {
 
     return currentTime.getTime() > endDateTime.getTime()
   }
-
+  console.log(rental);
   return (
     <Paper key={rental.id} sx={{ marginBottom: 3, padding: 2, position: 'relative' }}>
       <Stack direction="row" justifyContent="space-between" position="absolute" top={20} right={20}>
@@ -82,7 +82,7 @@ export const RentalHistoryItem = ({ rental }: { rental: RentalType }) => {
                 <TableRow key={item.id}>
                   <TableCell>{item.id}</TableCell>
                   <TableCell>{item.equipmentId ?? item.packageId ?? '-'}</TableCell>
-                  <TableCell>{item?.equipment?.name}</TableCell>
+                  <TableCell>{item?.equipment?.name ?? item?.name}</TableCell>
                   <TableCell>{item.quantity}</TableCell>
                   <TableCell>{item.durationType}</TableCell>
                   <TableCell>{item.durationValue}</TableCell>
