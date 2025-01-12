@@ -79,9 +79,9 @@ const CategoryForm = () => {
             <Input
               control={control}
               name="name"
-              label="Tên gói"
+              label="Tên danh mục"
               labelLeft
-              placeholder="Tên gói"
+              placeholder="Tên danh mục"
               fullWidth
             />
             <Input
